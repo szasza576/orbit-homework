@@ -1,0 +1,13 @@
+VnetResourceGroup     = "Orbit-spoke"
+VnetName              = "spoke1"
+VnetAddressSpace      = "10.0.0.0/16"
+BackendSubnetName     = "backend"
+BackendSubnetIPRange  = "10.0.0.0/24"
+DatabaseSubnetName    = "db"
+DatabaseSubnetIPRange = "10.0.1.0/24"
+DatabaseResourceGroup = "Orbit-database"
+DatabaseName          = "gaborshomeworkdb"
+AKSResourceGroup      = "Orbit-AKS"
+AKSName               = "simpleaks"
+AKSNodeMaxCount       = 2
+AKSVersion            = "1.29.6"
