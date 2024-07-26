@@ -1,4 +1,3 @@
-
 resource "azurerm_resource_group" "AKSRG" {
   name     = var.AKSResourceGroup
   location = var.Location
@@ -25,12 +24,12 @@ resource "azurerm_log_analytics_workspace" "AKSLogs" {
 }
 
 resource "azurerm_kubernetes_cluster" "AKSCluster" {
-  name                   = var.AKSName
-  location               = azurerm_resource_group.AKSRG.location
-  resource_group_name    = azurerm_resource_group.AKSRG.name
-  depends_on             = [azurerm_role_assignment.AKSIdentityRoleAssignment]
-  kubernetes_version     = var.AKSVersion
-  dns_prefix             = var.AKSName
+  name                = var.AKSName
+  location            = azurerm_resource_group.AKSRG.location
+  resource_group_name = azurerm_resource_group.AKSRG.name
+  depends_on          = [azurerm_role_assignment.AKSIdentityRoleAssignment]
+  kubernetes_version  = var.AKSVersion
+  dns_prefix          = var.AKSName
 
   default_node_pool {
     name                = "default"
@@ -67,13 +66,13 @@ resource "azurerm_kubernetes_cluster" "AKSCluster" {
   }
 
   lifecycle {
-    ignore_changes = [ kubernetes_version, default_node_pool[0].node_count ]
+    ignore_changes = [kubernetes_version, default_node_pool[0].node_count]
   }
 }
 
 resource "azurerm_monitor_diagnostic_setting" "AKSDiagnostics" {
-  name               = "kube-logs"
-  target_resource_id = azurerm_kubernetes_cluster.AKSCluster.id
+  name                       = "kube-logs"
+  target_resource_id         = azurerm_kubernetes_cluster.AKSCluster.id
   log_analytics_workspace_id = azurerm_log_analytics_workspace.AKSLogs.id
 
   enabled_log {
